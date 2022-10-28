@@ -1,11 +1,11 @@
 package chaos.unity.guan
 
-final case class Span(val startPosition: Position, val endPosition: Position):
-  lazy val isSameLine: Boolean =
+final case class Span(val startPosition: Position, val endPosition: Position) extends Segment:
+  override lazy val isSameLine: Boolean =
     startPosition.line == endPosition.line
-  lazy val isInLine: Int => Boolean =
+  override lazy val isInLine: Int => Boolean =
     line => startPosition.line to endPosition.line contains line
-  lazy val offset: Int =
+  override lazy val offset: Int =
     if (startPosition.line != endPosition.line || startPosition.pos > endPosition.pos) -1 else endPosition.pos - startPosition.pos
 
   def expand(span: Option[Span]): Span = span match
