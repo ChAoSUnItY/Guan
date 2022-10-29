@@ -7,9 +7,17 @@ final case class Source(val lines: List[Line]):
     lines.slice(start, end)
 
 object Source:
+
+  import scala.io.{BufferedSource, Source as Src}
+
+  def fromResource(filePath: String): Option[Source] =
+    fromFile(Src.fromResource(filePath))
+
+
   def fromFile(filePath: String): Option[Source] =
-    import scala.io.Source as Src
-    val file = Src.fromFile(filePath)
+    fromFile(Src.fromFile(filePath))
+
+  def fromFile(file: BufferedSource): Option[Source] =
     val lines =
       try file.getLines.toList
       catch {
