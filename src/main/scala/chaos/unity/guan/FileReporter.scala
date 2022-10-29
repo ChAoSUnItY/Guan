@@ -16,6 +16,9 @@ object FileReporter:
 
     def warning(span: Span, message: String, args: Any*): ReportBuilder =
       ReportBuilder(this, span, message.format(args: _*), Warning.apply)
+      
+    def error(span: Span, message: String, args: Any*): ReportBuilder =
+      ReportBuilder(this, span, message.format(args: _*), Error.apply)
 
     def build: FileReporter =
       FileReporter(file, _reports.toList)
