@@ -2,7 +2,7 @@ package chaos.unity.guan
 
 import scala.collection.mutable.ArrayBuffer
 
-final case class Source(val lines: List[String])
+final case class Source(val lines: List[String]) extends AnyVal
 
 object Source:
 
