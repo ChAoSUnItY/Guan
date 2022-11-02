@@ -2,9 +2,7 @@ package chaos.unity.guan
 
 import scala.collection.mutable.ArrayBuffer
 
-final case class Source(val lines: List[Line]):
-  def slice(start: Int, end: Int = lines.length - 1): List[Line] =
-    lines.slice(start, end)
+final case class Source(val lines: List[String])
 
 object Source:
 
@@ -26,14 +24,14 @@ object Source:
     Some(fromLines(lines))
 
   def fromLine(line: String): Source =
-    Source(List(Line(1, 0, line.length, line)))
+    Source(List(line))
 
   def fromLines(lines: List[String]): Source =
-    val lineBuilder = ArrayBuffer[Line]()
+    val lineBuilder = ArrayBuffer[String]()
 
     lines.zipWithIndex.scanLeft(0) {
       case (offset, (line, lineNumber)) =>
-        lineBuilder += Line(lineNumber + 1, offset, line.length, line)
+        lineBuilder += line
         offset + line.length
     }
 
